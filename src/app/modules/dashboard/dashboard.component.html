@@ -1,0 +1,24 @@
+<mat-toolbar class="navbar-container">
+    <button mat-icon-button (click)="drawer.toggle()" class="example-icon"
+        aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>Gestión Alumnos</span>
+    <span class="example-spacer"></span>
+</mat-toolbar>
+
+
+
+
+<!--SIDEBAR-->
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+        <app-nav-menu />
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <app-students />
+    </div>
+
+
+</mat-drawer-container>
