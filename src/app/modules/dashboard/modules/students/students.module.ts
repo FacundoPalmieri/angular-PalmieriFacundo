@@ -10,12 +10,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { StudentDetailComponent } from './pages/student-detail/student-detail.component';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 
 
 @NgModule({
   declarations: [
     StudentsComponent,
-    StudentsTableComponent
+    StudentsTableComponent,
+    StudentDetailComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,11 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    MatCardContent,
+    MatCardTitle,
+    MatCardHeader,
+    MatCard
   ],
   exports: [StudentsComponent]
 })

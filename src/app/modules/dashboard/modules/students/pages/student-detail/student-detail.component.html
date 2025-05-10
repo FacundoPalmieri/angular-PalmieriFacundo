@@ -1,0 +1,26 @@
+<mat-card *ngIf="student$ | async as student; else loading">
+    <mat-card-header>
+        <mat-card-title>Detalles del Estudiante</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="student-details">
+            <div>
+                <strong>ID:</strong> {{ student.id }}
+            </div>
+            <div>
+                <strong>Nombre:</strong> {{ student.name }}
+            </div>
+            <div>
+                <strong>Apellido:</strong> {{ student.lastName }}
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<button mat-flat-button class="gray-button" routerLink="/dashboard">Volver</button>
+
+
+
+<ng-template #loading>
+    <p>Cargando detalles del estudiante...</p>
+</ng-template>

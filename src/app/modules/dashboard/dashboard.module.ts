@@ -15,7 +15,7 @@ import { StudentsModule } from './modules/students/students.module';
 @NgModule({
   declarations: [
     DashboardComponent,
-    NavMenuComponent
+    NavMenuComponent,
   ],
   imports: [
     CommonModule,

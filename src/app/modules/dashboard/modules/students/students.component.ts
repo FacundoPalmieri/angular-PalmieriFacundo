@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Student } from './models';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { StudentsService } from './students.service';
+import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-students',
@@ -8,44 +11,66 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: './students.component.html',
   styleUrl: './students.component.scss'
 })
-export class StudentsComponent {
+export class StudentsComponent implements OnDestroy {
 
   //Creamos una propiedad para saber si se está creando o editando un estudiante
   isEditingId: number | null = null;
-
-  // Datos de la tabla
-  students: Student[] = [
-    { id: 1, name: 'Juan', lastName: 'Pérez' },
-    { id: 2, name: 'María', lastName: 'López' },
-    { id: 3, name: 'Carlos', lastName: 'García' },
-    { id: 4, name: 'Ana', lastName: 'Torres' },
-    { id: 5, name: 'Luis', lastName: 'Fernández' },
-  ]
-
-
   studentForm: FormGroup;
+  students: Student[] = [];
+  isLoading: boolean = false;
+  studentsSubscription: Subscription | null = null;
+
 
   //Formulario
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private studentsService: StudentsService) {
     this.studentForm = this.fb.group({
-      name: [''],
-      lastName: [''],
+      name: ['', Validators.required],
+      lastName: ['', Validators.required],
     });
   }
 
+  ngOnInit(): void {
+    this.loadStudentsObservable();
+
+  }
+
+  loadStudentsObservable() {
+    this.isLoading = true;
+    this.studentsSubscription = this.studentsService
+      .getStudents$()
+      .pipe(first())
+      .subscribe({
+        next: (datos) => {
+          this.students = datos;
+        },
+        error: (error) => console.error(error),
+        complete: () => {
+          this.isLoading = false;
+        }
+      })
+  }
+
   onSubmit() {
+    if (this.studentForm.invalid) {
+      // Si el formulario es inválido, marcar todos los campos como tocados
+      this.studentForm.markAllAsTouched();
+      return;
+    }
     if (this.isEditingId) {
+      // Si es una edición, actualiza el estudiante
       this.students = this.students.map((student) =>
         student.id === this.isEditingId
           ? { ...student, ...this.studentForm.value }
           : student
       );
     } else {
+      // Si es un nuevo registro, agregar al arreglo de estudiantes
       this.students = [...this.students, this.studentForm.value];
     }
-
-    this.studentForm.reset();
     this.isEditingId = null;
+    // Resetea el formulario solo si es necesario
+    this.studentForm.reset();
+
   }
 
 
@@ -58,6 +83,10 @@ export class StudentsComponent {
   onEditStudent(student: Student) {
     this.isEditingId = student.id
     this.studentForm.patchValue(student);
+  }
+
+  ngOnDestroy(): void {
+    this.studentsSubscription?.unsubscribe();
   }
 }
 
