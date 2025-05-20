@@ -5,6 +5,7 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { CourseComponent } from './course.component';
 import { CourseRoutingModule } from './course-routing.module';
+import { CourseDetailComponent } from './pages/course-detail/course-detail.component';
 
 
 
@@ -13,7 +14,8 @@ import { CourseRoutingModule } from './course-routing.module';
 @NgModule({
   declarations: [
     CoursetableComponent,
-    CourseComponent
+    CourseComponent,
+    CourseDetailComponent
   ],
   imports: [
     CommonModule,

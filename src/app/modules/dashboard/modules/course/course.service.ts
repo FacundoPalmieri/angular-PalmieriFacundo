@@ -17,7 +17,7 @@ export class CoursesService {
 
     getCourseById(id: number): Observable<Course | null> {
         return of([...CourseDatabase]).pipe(
-            map(courses => courses.find(course => course.id === id) || null)
+            map(courses => courses.find(course => course.id == id) || null)
         );
     }
 
