@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,11 +10,20 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  constructor(private router: Router) { }
+  loginForm: FormGroup;
+
+
+  constructor(private router: Router, private authService: AuthService, private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   login() {
-
-    localStorage.setItem('token', 'pruebaToken');
-    this.router.navigate(['/dashboard']);
+    if (this.loginForm.valid) {
+      const { email, password } = this.loginForm.value;
+      const user = this.authService.login(email, password);
+    }
   }
 }

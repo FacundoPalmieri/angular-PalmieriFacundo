@@ -2,8 +2,10 @@ import { Component, OnDestroy } from '@angular/core';
 import { Student } from './models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentsService } from './students.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { User } from '../../../../core/models';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-students',
@@ -20,13 +22,18 @@ export class StudentsComponent implements OnDestroy {
   isLoading: boolean = false;
   studentsSubscription: Subscription | null = null;
 
+  authUser$: Observable<User | null>;
 
   //Formulario
-  constructor(private fb: FormBuilder, private studentsService: StudentsService) {
+  constructor(private fb: FormBuilder, private studentsService: StudentsService, private authService: AuthService) {
     this.studentForm = this.fb.group({
       name: ['', Validators.required],
       lastName: ['', Validators.required],
     });
+
+    this.authUser$ = this.authService.authUser$
+
+
   }
 
   ngOnInit(): void {

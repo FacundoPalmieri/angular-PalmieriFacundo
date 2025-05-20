@@ -1,7 +1,7 @@
 <div class="ms-5 mt-3">
     <h1 class="d-flex ms-1">Estudiantes</h1>
 
-    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="w-50">
+    <form *ngIf="(authUser$ |async)?.role !=='admin'" [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="w-50">
         <div class="row gx-0">
             <div class="col-6">
                 <mat-form-field> <!--Envoltura de Inptus-->

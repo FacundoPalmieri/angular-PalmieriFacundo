@@ -30,10 +30,12 @@
             <button [routerLink]="element.id" mat-icon-button>
                 <mat-icon>visibility</mat-icon>
             </button>
-            <button (click)="editStudent.emit(element)" mat-icon-button>
+            <button [disabled]="(authUser$ | async) ?.role != 'admin'" (click)="editStudent.emit(element)"
+                mat-icon-button>
                 <mat-icon>edit</mat-icon>
             </button>
-            <button (click)="deleteStudent.emit(element.id)" mat-icon-button>
+            <button [disabled]="(authUser$ | async) ?.role != 'admin'" (click)="deleteStudent.emit(element.id)"
+                mat-icon-button>
                 <mat-icon>delete</mat-icon>
             </button>
     </ng-container>

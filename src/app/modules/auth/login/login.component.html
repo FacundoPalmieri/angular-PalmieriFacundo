@@ -1,14 +1,14 @@
-<form class="grid formgrid">
+<form [formGroup]="loginForm" class="grid formgrid">
     <div class="col-12">
         <h1>Bievenido!</h1>
     </div>
     <mat-form-field class="col-12">
         <mat-label>Email</mat-label>
-        <input matInput />
+        <input formControlName="email" matInput />
     </mat-form-field>
     <mat-form-field class="col-12">
         <mat-label>Contraseña</mat-label>
-        <input matInput />
+        <input formControlName="password" matInput />
     </mat-form-field>
     <div class="col-12 d-flex justify-content-end">
         <button mat-raised-button color="primary" type="button">Registrarse</button>
