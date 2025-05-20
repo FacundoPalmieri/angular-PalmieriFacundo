@@ -1,3 +1,27 @@
-<h1 class="d-flex ms-1">Estudiantes</h1>
-<app-course-table [dataSource]="courses" (editCourse)="onEditCourse($event)" (deleteCourse)="onDeleteCourse($event)">
-</app-course-table>
+<div class="ms-5 mt-3">
+    <h1 class="d-flex ms-1">Cursos</h1>
+
+    <form *ngIf="(authUser$ |async)?.role ==='admin'" [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="w-50">
+        <div class="row gx-0">
+            <div class="col-6">
+                <mat-form-field> <!--Envoltura de Inptus-->
+                    <mat-label>Título</mat-label>
+                    <input formControlName="name" matInput class="w-100" />
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field>
+                    <mat-label>Descripción</mat-label> <!--Envoltura de Inptus-->
+                    <input formControlName="lastName" matInput class="w-100" />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex justify-content-center mt-3 mb-5">
+            <button type="submit" mat-flat-button>Guardar</button>
+        </div>
+    </form>
+
+    <app-course-table (editCourse)="onEditCourse($event)" (deleteCourse)="onDeleteCourse($event)"
+        [dataSource]="courses" />
+</div>
