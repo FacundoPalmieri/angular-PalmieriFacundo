@@ -19,6 +19,14 @@
             "password": 123456,
             "role": "admin",
             "token": 1234567890
+        },
+        {
+            "id": 2,
+            "name": "Prueba",
+            "email": "noadmin@email.com",
+            "password": 123456,
+            "role": "user",
+            "token": 123456
         }
     ]
 }

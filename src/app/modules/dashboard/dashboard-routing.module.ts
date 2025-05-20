@@ -8,7 +8,7 @@ const routes: Routes = [
     loadChildren: () => import('./modules/students/students.module').then(m => m.StudentsModule)
   },
   {
-    path: 'orders',
+    path: 'course',
     canActivate: [adminGuard],
     loadChildren: () =>
       import('./modules/course/course.module').then((m) => m.CourseModule),
