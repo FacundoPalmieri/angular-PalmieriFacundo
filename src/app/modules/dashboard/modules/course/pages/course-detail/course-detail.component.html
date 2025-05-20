@@ -1,26 +1,34 @@
 <mat-card *ngIf="course$ | async as course; else loading">
-    <mat-card-header>
-        <mat-card-title>Detalles del Curso</mat-card-title>
-    </mat-card-header>
+    <mat-card-title>{{ course.title }}</mat-card-title>
     <mat-card-content>
-        <div class="course-detail">
-            <div>
-                <strong>ID:</strong> {{ course.id }}
-            </div>
-            <div>
-                <strong>Título:</strong> {{ course.title }}
-            </div>
-            <div>
-                <strong>Descripción:</strong> {{ course.description }}
-            </div>
+        <p>{{ course.description }}</p>
+
+        <!-- Si el usuario es alumno -->
+        <div *ngIf="currentUser?.role === 'user'">
+            <button mat-flat-button color="primary" [disabled]="isEnrolled" (click)="enroll(course.id)">
+                {{ isEnrolled ? 'Ya estás inscripto' : 'Inscribirme' }}
+            </button>
+        </div>
+
+        <!-- Si el usuario es admin -->
+        <div *ngIf="currentUser?.role === 'admin'">
+            <h3>Alumnos inscriptos</h3>
+            <mat-list *ngIf="enrolledStudents && enrolledStudents.length > 0; else noStudents">
+                <mat-list-item *ngFor="let student of enrolledStudents">
+                    {{ student.name }} ({{ student.email }})
+                    <button mat-icon-button color="warn" (click)="unenroll(course.id, student.id)">
+                        <mat-icon>remove_circle</mat-icon>
+                    </button>
+                </mat-list-item>
+            </mat-list>
+
+            <ng-template #noStudents>
+                <p>No hay alumnos inscriptos en este curso.</p>
+            </ng-template>
         </div>
     </mat-card-content>
 </mat-card>
 
-<button mat-flat-button class="gray-button" routerLink="/dashboard">Volver</button>
-
-
-
 <ng-template #loading>
-    <p>Cargando detalles del curso...</p>
+    <p>Cargando...</p>
 </ng-template>

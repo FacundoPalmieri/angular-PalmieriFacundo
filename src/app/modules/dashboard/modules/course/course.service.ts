@@ -7,10 +7,11 @@ import { Course } from './models';
 
 // Simulación de base de datos
 const CourseDatabase: Course[] = [
-    { id: 1, title: 'Curso Angular', description: 'Aprendé Angular desde cero' },
-    { id: 2, title: 'Curso Java', description: 'Programación Java avanzada' },
-    { id: 3, title: 'Curso Spring Boot', description: 'Desarrollo de APIs REST' }
+    { id: 1, title: 'Curso Angular', description: 'Aprendé Angular desde cero', students: [] },
+    { id: 2, title: 'Curso Java', description: 'Programación Java avanzada', students: [] },
+    { id: 3, title: 'Curso Spring Boot', description: 'Desarrollo de APIs REST', students: [] }
 ];
+
 
 @Injectable({ providedIn: 'root' })
 export class CoursesService {
@@ -30,4 +31,18 @@ export class CoursesService {
         });
         return courses;
     }
+
+    enrollStudent(courseId: number, studentId: number): void {
+        const course = CourseDatabase.find(c => c.id === courseId);
+        if (course) {
+            if (!course.students) {
+                course.students = [];
+            }
+
+            if (!course.students.includes(studentId)) {
+                course.students.push(studentId);
+            }
+        }
+    }
+
 }

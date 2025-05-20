@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatListModule } from '@angular/material/list';
 
 
 
@@ -20,7 +21,8 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatSelectModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatListModule
   ],
   exports: [
     MatFormFieldModule,
@@ -30,7 +32,8 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatSelectModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    MatListModule
   ]
 
 })
