@@ -72,7 +72,8 @@ export class CourseComponent implements OnInit, OnDestroy {
   }
 
   onEditCourse(course: Course): void {
-    console.log('Editar curso', course);
+    this.isEditingId = course.id
+    this.courseForm.patchValue(course);
   }
 
   onDeleteCourse(courseId: number): void {
