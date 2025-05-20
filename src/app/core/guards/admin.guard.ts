@@ -10,7 +10,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
 
   return authService.authUser$.pipe(
     map((user) => {
-      if (user?.role !== 'admin') {
+      if (user?.role === 'admin') {
         return true;
       } else {
         alert('No tienes permisos para acceder a esta página');

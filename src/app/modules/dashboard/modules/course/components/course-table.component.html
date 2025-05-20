@@ -1,42 +1,35 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div class="mt-4 ms-5 me-5">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-100">
 
-    <!-- ID -->
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> Id </th>
-        <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
-    </ng-container>
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let course">{{ course.id }}</td>
+        </ng-container>
 
-    <!-- Título -->
-    <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef> Título </th>
-        <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
-    </ng-container>
+        <!-- Title Column -->
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Título</th>
+            <td mat-cell *matCellDef="let course">{{ course.title }}</td>
+        </ng-container>
 
-    <!-- Descripción -->
-    <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef> Descripción </th>
-        <td mat-cell *matCellDef="let element"> {{ element.description }} </td>
-    </ng-container>
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Descripción</th>
+            <td mat-cell *matCellDef="let course">{{ course.description }}</td>
+        </ng-container>
 
-    <!-- Acciones -->
-    <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Acciones </th>
-        <td mat-cell *matCellDef="let element">
-            <button [routerLink]="element.id" mat-icon-button>
-                <mat-icon>visibility</mat-icon>
-            </button>
-            <button [disabled]="(authUser$ | async)?.role !== 'admin'" (click)="editCourse.emit(element)"
-                mat-icon-button>
-                <mat-icon>edit</mat-icon>
-            </button>
-            <button [disabled]="(authUser$ | async)?.role !== 'admin'" (click)="deleteCourse.emit(element.id)"
-                mat-icon-button>
-                <mat-icon>delete</mat-icon>
-            </button>
-        </td>
-    </ng-container>
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let course">
+                <button mat-button color="primary" (click)="onEdit(course)">Editar</button>
+                <button mat-button color="warn" (click)="onDelete(course.id)">Eliminar</button>
+            </td>
+        </ng-container>
 
-    <!-- Renderizado -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+        <!-- Encabezados y filas -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

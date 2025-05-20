@@ -4,6 +4,7 @@ import { CoursetableComponent } from './components/course-table.component';
 import { SharedModule } from '../../../../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { CourseComponent } from './course.component';
+import { CourseRoutingModule } from './course-routing.module';
 
 
 
@@ -17,7 +18,9 @@ import { CourseComponent } from './course.component';
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule
-  ]
+    SharedModule,
+    CourseRoutingModule
+  ],
+  exports: [CourseComponent]
 })
 export class CourseModule { }
