@@ -1,48 +1,49 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Course } from './models';
+import { HttpClient } from '@angular/common/http';
 
 
 
-// Simulación de base de datos
-const CourseDatabase: Course[] = [
-    { id: 1, title: 'Curso Angular', description: 'Aprendé Angular desde cero', students: [] },
-    { id: 2, title: 'Curso Java', description: 'Programación Java avanzada', students: [] },
-    { id: 3, title: 'Curso Spring Boot', description: 'Desarrollo de APIs REST', students: [] }
-];
 
 
 @Injectable({ providedIn: 'root' })
 export class CoursesService {
+    private apiUrl = 'http://localhost:3000/courses';
+
+    constructor(private http: HttpClient) { }
 
     getCourseById(id: number): Observable<Course | null> {
-        return of([...CourseDatabase]).pipe(
-            map(courses => courses.find(course => course.id == id) || null)
+        return this.http.get<Course>(`${this.apiUrl}/${id}`).pipe(
+            map(course => course || null)
         );
     }
 
     getCourses$(): Observable<Course[]> {
-        const courses = new Observable<Course[]>((observer) => {
-            setTimeout(() => {
-                observer.next(CourseDatabase);
-                observer.complete();
-            }, 1000);
-        });
-        return courses;
+        return this.http.get<Course[]>(this.apiUrl);
     }
 
-    enrollStudent(courseId: number, studentId: number): void {
-        const course = CourseDatabase.find(c => c.id === courseId);
-        if (course) {
-            if (!course.students) {
-                course.students = [];
-            }
+    enrollStudent(courseId: number, studentId: number): Observable<Course> {
+        return this.getCourseById(courseId).pipe(
+            switchMap(course => {
+                if (!course) {
+                    throw new Error('Curso no encontrado');
+                }
 
-            if (!course.students.includes(studentId)) {
-                course.students.push(studentId);
-            }
-        }
+                const updatedStudents = course.students || [];
+
+                if (!updatedStudents.includes(studentId)) {
+                    updatedStudents.push(studentId);
+                }
+
+                const updatedCourse: Course = {
+                    ...course,
+                    students: updatedStudents
+                };
+
+                return this.http.put<Course>(`${this.apiUrl}/${courseId}`, updatedCourse);
+            })
+        );
     }
-
 }

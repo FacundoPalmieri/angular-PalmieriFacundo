@@ -2,13 +2,58 @@
     "students": [
         {
             "id": 1,
-            "name": "John Doe",
-            "age": 20
+            "name": "John",
+            "lastName": "Doe"
         },
         {
             "id": 2,
-            "name": "Jane Smith",
-            "age": 22
+            "name": "Jane",
+            "lastName": "Smith"
+        },
+        {
+            "id": 3,
+            "name": "Carlos",
+            "lastName": "García"
+        },
+        {
+            "id": 4,
+            "name": "Ana",
+            "lastName": "Torres"
+        },
+        {
+            "id": 5,
+            "name": "Luis",
+            "lastName": "Fernández"
+        },
+        {
+            "id": 6,
+            "name": "María",
+            "lastName": "López"
+        },
+        {
+            "id": 7,
+            "name": "Sofía",
+            "lastName": "Romero"
+        }
+    ],
+    "courses": [
+        {
+            "id": 1,
+            "title": "Curso Angular",
+            "description": "Aprendé Angular desde cero",
+            "students": []
+        },
+        {
+            "id": 2,
+            "title": "Curso Java",
+            "description": "Programación Java avanzada",
+            "students": []
+        },
+        {
+            "id": 3,
+            "title": "Curso Spring Boot",
+            "description": "Desarrollo de APIs REST",
+            "students": []
         }
     ],
     "users": [
