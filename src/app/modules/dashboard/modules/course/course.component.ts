@@ -50,25 +50,33 @@ export class CourseComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.courseForm.invalid) {
-      // Si el formulario es inválido, marcar todos los campos como tocados
       this.courseForm.markAllAsTouched();
       return;
     }
-    if (this.isEditingId) {
-      // Si es una edición, actualiza el estudiante
-      this.courses = this.courses.map((course) =>
-        course.id === this.isEditingId
-          ? { ...course, ...this.courseForm.value }
-          : course
-      );
-    } else {
-      // Si es un nuevo registro, agregar al arreglo de estudiantes
-      this.courses = [...this.courses, this.courseForm.value];
-    }
-    this.isEditingId = null;
-    // Resetea el formulario solo si es necesario
-    this.courseForm.reset();
+    const formValue = this.courseForm.value;
 
+    if (this.isEditingId) {
+      // Actualizar curso en el backend
+      this.coursesService.updateCourse(this.isEditingId, { ...formValue, id: this.isEditingId, students: [] }).subscribe({
+        next: (updatedCourse) => {
+          this.courses = this.courses.map(course =>
+            course.id === this.isEditingId ? updatedCourse : course
+          );
+          this.isEditingId = null;
+          this.courseForm.reset();
+        },
+        error: (err) => console.error(err)
+      });
+    } else {
+      // Crear curso en el backend
+      this.coursesService.createCourse({ ...formValue, students: [] }).subscribe({
+        next: (newCourse) => {
+          this.courses = [...this.courses, newCourse];
+          this.courseForm.reset();
+        },
+        error: (err) => console.error(err)
+      });
+    }
   }
 
   onEditCourse(course: Course): void {
@@ -78,7 +86,12 @@ export class CourseComponent implements OnInit, OnDestroy {
 
   onDeleteCourse(courseId: number): void {
     if (confirm('¿Eliminar este curso?')) {
-      this.courses = this.courses.filter((c) => c.id !== courseId);
+      this.coursesService.deleteCourse(courseId).subscribe({
+        next: () => {
+          this.courses = this.courses.filter((c) => c.id !== courseId);
+        },
+        error: (err) => console.error(err)
+      });
     }
   }
 

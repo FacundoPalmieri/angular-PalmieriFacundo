@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { StudentsRoutingModule } from './students-routing.module';
 import { StudentsComponent } from './students.component';
 import { StudentsTableComponent } from './components/students-table/students-table.component';
@@ -12,6 +11,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { StudentDetailComponent } from './pages/student-detail/student-detail.component';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StudentsEffects } from './state/students.effects';
+import { studentsReducer } from './state/students.reducer';
 
 
 @NgModule({
@@ -32,7 +35,9 @@ import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/m
     MatCardContent,
     MatCardTitle,
     MatCardHeader,
-    MatCard
+    MatCard,
+    StoreModule.forFeature('students', studentsReducer),
+    EffectsModule.forFeature([StudentsEffects]),
   ],
   exports: [StudentsComponent]
 })

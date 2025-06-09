@@ -19,6 +19,19 @@ export class StudentsService {
     return this.http.get<Student[]>(this.apiUrl);
   }
 
+  createStudent(student: Student): Observable<Student> {
+    return this.http.post<Student>(this.apiUrl, student);
+  }
+
+  updateStudent(id: number, student: Student): Observable<Student> {
+    return this.http.put<Student>(`${this.apiUrl}/${id}`, student);
+  }
+
+  deleteStudent(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+
 }
 
 const numero: number = 0;

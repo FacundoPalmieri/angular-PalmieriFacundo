@@ -46,4 +46,18 @@ export class CoursesService {
             })
         );
     }
+
+    createCourse(course: Course): Observable<Course> {
+        return this.http.post<Course>(this.apiUrl, course);
+    }
+
+    updateCourse(courseId: number, course: Course): Observable<Course> {
+        return this.http.put<Course>(`${this.apiUrl}/${courseId}`, course);
+    }
+
+    deleteCourse(courseId: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${courseId}`);
+    }
+
+
 }

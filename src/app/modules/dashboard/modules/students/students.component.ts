@@ -59,31 +59,50 @@ export class StudentsComponent implements OnDestroy {
 
   onSubmit() {
     if (this.studentForm.invalid) {
-      // Si el formulario es inválido, marcar todos los campos como tocados
       this.studentForm.markAllAsTouched();
       return;
     }
-    if (this.isEditingId) {
-      // Si es una edición, actualiza el estudiante
-      this.students = this.students.map((student) =>
-        student.id === this.isEditingId
-          ? { ...student, ...this.studentForm.value }
-          : student
-      );
-    } else {
-      // Si es un nuevo registro, agregar al arreglo de estudiantes
-      this.students = [...this.students, this.studentForm.value];
-    }
-    this.isEditingId = null;
-    // Resetea el formulario solo si es necesario
-    this.studentForm.reset();
 
+    if (this.isEditingId) {
+      // Edición: persistir en la base de datos
+      this.studentsService.updateStudent(this.isEditingId, this.studentForm.value).subscribe({
+        next: (updatedStudent) => {
+          this.students = this.students.map((student) =>
+            student.id === this.isEditingId ? updatedStudent : student
+          );
+          this.isEditingId = null;
+          this.studentForm.reset();
+        },
+        error: (err) => {
+
+          console.error('Error al actualizar:', err);
+        }
+      });
+    } else {
+      this.studentsService.createStudent(this.studentForm.value).subscribe({
+        next: (newStudent) => {
+          this.students = [...this.students, newStudent];
+          this.studentForm.reset();
+        },
+        error: (err) => {
+
+          console.error('Error al crear:', err);
+        }
+      });
+    }
   }
 
 
   onDeleteStudent(id: number) {
     if (confirm('¿Desea eliminar este estudiante?')) {
-      this.students = this.students.filter((student) => student.id !== id);
+      this.studentsService.deleteStudent(id).subscribe({
+        next: () => {
+          this.students = this.students.filter((student) => student.id !== id);
+        },
+        error: (err) => {
+          console.error('Error al eliminar:', err);
+        }
+      });
     }
   }
 

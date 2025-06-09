@@ -1,77 +1,77 @@
 {
-    "students": [
-        {
-            "id": 1,
-            "name": "John",
-            "lastName": "Doe"
-        },
-        {
-            "id": 2,
-            "name": "Jane",
-            "lastName": "Smith"
-        },
-        {
-            "id": 3,
-            "name": "Carlos",
-            "lastName": "García"
-        },
-        {
-            "id": 4,
-            "name": "Ana",
-            "lastName": "Torres"
-        },
-        {
-            "id": 5,
-            "name": "Luis",
-            "lastName": "Fernández"
-        },
-        {
-            "id": 6,
-            "name": "María",
-            "lastName": "López"
-        },
-        {
-            "id": 7,
-            "name": "Sofía",
-            "lastName": "Romero"
-        }
-    ],
-    "courses": [
-        {
-            "id": 1,
-            "title": "Curso Angular",
-            "description": "Aprendé Angular desde cero",
-            "students": []
-        },
-        {
-            "id": 2,
-            "title": "Curso Java",
-            "description": "Programación Java avanzada",
-            "students": []
-        },
-        {
-            "id": 3,
-            "title": "Curso Spring Boot",
-            "description": "Desarrollo de APIs REST",
-            "students": []
-        }
-    ],
-    "users": [
-        {
-            "id": 1,
-            "name": "Facundo",
-            "email": "fake@email.com",
-            "password": 123456,
-            "role": "admin",
-            "token": 1234567890
-        },
-        {
-            "id": 2,
-            "name": "Prueba",
-            "email": "noadmin@email.com",
-            "password": 123456,
-            "role": "user",
-            "token": 123456
-        }
-    ]
+  "students": [
+    {
+      "name": "Facundo",
+      "lastName": "Doe",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "name": "Jane",
+      "lastName": "Smith"
+    },
+    {
+      "id": "3",
+      "name": "Carlos",
+      "lastName": "García"
+    },
+    {
+      "id": "4",
+      "name": "Ana",
+      "lastName": "Torres"
+    },
+    {
+      "id": "5",
+      "name": "Luis",
+      "lastName": "Fernández"
+    },
+    {
+      "id": "6",
+      "name": "María",
+      "lastName": "López"
+    },
+    {
+      "id": "7",
+      "name": "Sofía",
+      "lastName": "Romero"
+    }
+  ],
+  "courses": [
+    {
+      "title": "Curso Angularr",
+      "description": "Aprendé Angular desde cero",
+      "id": "1",
+      "students": []
+    },
+    {
+      "id": "2",
+      "title": "Curso Java",
+      "description": "Programación Java avanzada",
+      "students": []
+    },
+    {
+      "id": "3",
+      "title": "Curso Spring Boot",
+      "description": "Desarrollo de APIs REST",
+      "students": []
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "Facundo",
+      "email": "fake@email.com",
+      "password": 123456,
+      "role": "admin",
+      "token": 1234567890
+    },
+    {
+      "id": "2",
+      "name": "Prueba",
+      "email": "noadmin@email.com",
+      "password": 123456,
+      "role": "user",
+      "token": 123456
+    }
+  ]
 }
