@@ -34,5 +34,4 @@ export class StudentsService {
 
 }
 
-const numero: number = 0;
 

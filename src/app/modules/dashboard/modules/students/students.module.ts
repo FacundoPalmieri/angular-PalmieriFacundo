@@ -10,11 +10,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { StudentDetailComponent } from './pages/student-detail/student-detail.component';
-import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { MatCard, MatCardContent, MatCardHeader, MatCardModule, MatCardTitle } from '@angular/material/card';
 import { StoreModule } from '@ngrx/store';
+import { studentsReducer } from './state/students.reducer';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EffectsModule } from '@ngrx/effects';
 import { StudentsEffects } from './state/students.effects';
-import { studentsReducer } from './state/students.reducer';
+
 
 
 @NgModule({
@@ -37,7 +39,10 @@ import { studentsReducer } from './state/students.reducer';
     MatCardHeader,
     MatCard,
     StoreModule.forFeature('students', studentsReducer),
+    MatProgressSpinnerModule,
     EffectsModule.forFeature([StudentsEffects]),
+    MatCardModule,
+
   ],
   exports: [StudentsComponent]
 })

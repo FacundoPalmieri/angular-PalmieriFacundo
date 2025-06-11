@@ -9,9 +9,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { MatListModule } from '@angular/material/list';
-import { StudentsModule } from './modules/students/students.module';
-import { Course } from './modules/course/models/index';
 import { CourseModule } from './modules/course/course.module';
+
 
 
 @NgModule({
@@ -27,7 +26,6 @@ import { CourseModule } from './modules/course/course.module';
     MatToolbarModule,
     MatIconModule,
     MatListModule,
-    StudentsModule,
     CourseModule
   ],
   exports: [DashboardComponent],
